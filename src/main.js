@@ -54,9 +54,7 @@ function analyzeSalesData(data, options) {
         ) {
     throw new Error('Некорректные входные данные');
     } 
-    else {
-        console.log("Все хорошо")
-    }
+    
     // @TODO: Проверка наличия опций
     if (!typeof calculateRevenue === "function" || !typeof calculateBonus == "function") {
         throw new Error('Чего-то не хватает');
@@ -75,14 +73,14 @@ function analyzeSalesData(data, options) {
         top_products: [],
         products_sold: {}
     }));
-    console.log(sellerStats);
+    
     
     // @TODO: Индексация продавцов и товаров для быстрого доступа
     const someIndex = Object.fromEntries(sellerStats.map(seller => [seller.id, seller]));
-    console.log(someIndex);
+    
 
     const productIndex = Object.fromEntries(data.products.map(products => [products.sku, products]));
-    console.log(productIndex);
+    
     // @TODO: Расчет выручки и прибыли для каждого продавца
 
     data.purchase_records.forEach(record => { // Чек 
@@ -119,7 +117,7 @@ function analyzeSalesData(data, options) {
     
     // @TODO: Сортировка продавцов по прибыли
     const sorted = sellerStats.toSorted((a, b) => b.profit - a.profit);
-    console.log(sorted);
+    
     // @TODO: Назначение премий на основе ранжирования
     sorted.forEach((seller, index) => {
         seller.bonus = calculateBonus(index, sorted.length, seller);
